@@ -23,18 +23,21 @@ if (isset($_POST["submit"])) {
    $task = $_POST['task'];
    $date = $_POST['date'];
    $status = $_POST['status'];
-
+   if (empty($task) or empty($date) or empty($status)) {
+      echo "<div class='alert alert-danger'>All fields are required!</div>";
+  }else{
    $uid = $user["id"];
 
    $sql = "INSERT INTO `tasks` (`id`, `task`, `due_date`, `status`, `user_id`) VALUES (NULL,'$task','$date','$status','$uid' ) " ;
 
    $result = mysqli_query($conn, $sql);
-
+  
    if ($result) {
       header("Location: tasks.php?msg=New record created successfully");
    } else {
       echo "Failed: " . mysqli_error($conn);
    }
+}
 }
 
 ?>
@@ -89,7 +92,7 @@ if (isset($_POST["submit"])) {
                <input type="radio" class="form-check-input" name="status" id="complete" value="complete">
                <label for="complete" class="form-input-label">Complete</label>
                &nbsp;
-               <input type="radio" class="form-check-input" name="status" id="incomplete" value="incomplete">
+               <input type="radio" class="form-check-input" name="status" id="incomplete" value="incomplete" checked>
                <label for="incomplete" class="form-input-label">Incomplete</label>
             </div>
 

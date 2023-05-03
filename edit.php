@@ -25,6 +25,9 @@ if (isset($_POST["submit"])) {
   $task = $_POST['task'];
   $date = $_POST['date'];
   $status = $_POST['status'];
+  if (empty($task) or empty($date) or empty($status)) {
+    echo "<div class='alert alert-danger'>All fields are required!</div>";
+}else{
 
   $sql = "UPDATE `tasks` SET `task`='$task',`due_date`='$date',`status`='$status' WHERE id = $id AND user_id = $uid";
 
@@ -35,6 +38,7 @@ if (isset($_POST["submit"])) {
   } else {
     echo "Failed: " . mysqli_error($conn);
   }
+}
 }
 ?>
 
